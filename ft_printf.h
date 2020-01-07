@@ -16,6 +16,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-int		ft_printf(const *char);
+/*int		ft_printf(const *char);*/
+void	ft_print_char(char c);
+void	ft_print_str(char *str);
+void	ft_print_nbr(int nb);
+void	ft_print_hexa(int nb, char c);
 
 # endif
