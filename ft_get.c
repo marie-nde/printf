@@ -1,52 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_get.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/08 10:46:49 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/08 13:28:34 by mnaude           ###   ########.fr       */
+/*   Created: 2020/01/08 11:40:33 by mnaude            #+#    #+#             */
+/*   Updated: 2020/01/08 13:51:21 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_print_char(char c)
+char			ft_get_char(va_list list)
 {
-	write(1, &c, 1);
+	return (va_arg(list, int));
 }
 
-void	ft_print_str(char *str)
+char			*ft_get_str(va_list list)
 {
-	int i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		ft_print_char(str[i]);
-		i++;
-	}
+	return (va_arg(list, char*));
 }
 
-void	ft_print_nbr(int nb)
+int				ft_get_int(va_list list)
 {
-	long n;
-
-	n = nb;
-	if (n < 0)
-	{
-		ft_print_char('-');
-		n = -n;
-	}
-	if (n > 9)
-		ft_print_nbr(n / 10);
-	ft_print_char((n % 10) + '0');
+	return (va_arg(list, int));
 }
 
-void	ft_print_unsigned(unsigned int nb)
+unsigned int	ft_get_unsigned(va_list list)
 {
-	if (nb > 9)
-		ft_print_unsigned(nb / 10);
-	ft_print_char((nb % 10) + '0');
+	return (va_arg(list, unsigned int));
+}
+
+unsigned long	ft_get_pointer(va_list list)
+{
+	return (va_arg(list, unsigned long));
 }
