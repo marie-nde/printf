@@ -4,13 +4,13 @@
 int		main()
 {
 	int *p;
-	int a = 10;
+	int a = 2000000;
 
 	p = &a;
 	printf("Real printf :\n");
-	printf("|%4d|", 4);
+	printf("|%*.*d|", 1, 42, 9);
 	printf("\n\nMy printf\n");
-	ft_printf("|%4d|\n", 45);
+	ft_printf("hi %-67.56d coucou\n", 1, 42, 9);
 
 /*	printf("\n\nint max|%d|\n", 2147483647);
 	printf("int min |%d|\n", -2147483648);

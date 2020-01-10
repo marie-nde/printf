@@ -1,52 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_check.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/08 10:46:49 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/10 14:59:51 by mnaude           ###   ########.fr       */
+/*   Created: 2020/01/10 16:07:24 by mnaude            #+#    #+#             */
+/*   Updated: 2020/01/10 16:10:08 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_print_char(char c)
+int		ft_check(char c)
 {
-	write(1, &c, 1);
+	if (c == '0' || c == '-' || c == '.' || c == '*')
+		return (1);
+	if (c >= '0' && c <= '9')
+		return (2);
+	return (0);
 }
 
-void	ft_print_str(char *str)
+int		ft_checkpoint(const char *str)
 {
 	int i;
 
 	i = 0;
-	while (str && str[i])
+	while (str && str[i] && ft_check(str[i]) == 1)
 	{
-		ft_print_char(str[i]);
+		if (str[i] == '.')
+			return (1);
 		i++;
 	}
-}
-
-void	ft_print_nbr(int nb)
-{
-	long n;
-
-	n = nb;
-	if (n < 0)
-	{
-		ft_print_char('-');
-		n = -n;
-	}
-	if (n > 9)
-		ft_print_nbr(n / 10);
-	ft_print_char((n % 10) + '0');
-}
-
-void	ft_print_unsigned(unsigned int nb)
-{
-	if (nb > 9)
-		ft_print_unsigned(nb / 10);
-	ft_print_char((nb % 10) + '0');
+	return (0);
 }
