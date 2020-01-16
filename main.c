@@ -8,9 +8,9 @@ int		main()
 
 	p = &a;
 	printf("Real printf :\n");
-	printf("|%*.*d|", 1, 42, 9);
+	printf("|%-8.6d|", 4);
 	printf("\n\nMy printf\n");
-	ft_printf("hi %-67.56d coucou\n", 1, 42, 9);
+	ft_printf("|%-8.6d|\n", 4);
 
 /*	printf("\n\nint max|%d|\n", 2147483647);
 	printf("int min |%d|\n", -2147483648);

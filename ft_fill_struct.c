@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 11:59:02 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/10 16:12:14 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/16 14:08:43 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_minus(const char *str)
 	return (0);
 }
 
-int		ft_zero(const char *str, va_list list)
+int		ft_zero(const char *str)
 {
 	int i;
 
@@ -38,7 +38,7 @@ int		ft_zero(const char *str, va_list list)
 			return (48);
 		i++;
 	}
-	return (0);
+	return (32);
 }
 
 int		ft_width(const char *str, va_list list)
@@ -72,7 +72,7 @@ int		ft_point(const char *str, va_list list)
 	return (0);
 }
 
-int		ft_conversion(const char *str)
+char	*ft_conversion(const char *str, va_list list)
 {
 	int i;
 
@@ -80,20 +80,20 @@ int		ft_conversion(const char *str)
 	while (str && str[i] && (ft_check(str[i]) == 1 || ft_check(str[i]) == 2))
 		i++;
 	if (str[i] == 'd' || str[i] == 'i')
-		return (100);
+		return (ft_itoa(ft_get_int(list)));
 	else if (str[i] == 's')
-		return (115);
+		return (ft_get_str(list));
 	else if (str[i] == 'c')
-		return (99);
+		return (ft_ctoa(ft_get_char(list)));
 	else if (str[i] == 'u')
-		return (117);
+		return (ft_utoa(ft_get_unsigned(list)));
 	else if (str[i] == 'p')
-		return (112);
+		return (ft_ptoa(ft_get_pointer(list)));
 	else if (str[i] == 'x')
-		return (120);
+		return (ft_xtoa(ft_get_unsigned(list), 'x'));
 	else if (str[i] == 'X')
-		return (88);
+		return (ft_xtoa(ft_get_unsigned(list), 'X'));
 	else if (str[i] == '%')
-		return (37);
+		return (ft_strdup("%"));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:29:32 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/10 16:10:17 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/16 14:58:53 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,22 @@ int		ft_atoi(const char *str)
 {
 	int		i;
 	long	nb;
+	int		neg;
 
 	i = 0;
 	nb = 0;
+	neg = 1;
+	if (str[i] == '-')
+	{
+		neg = -1;
+		i++;
+	}
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
 		i++;
 	}
-	return (nb);
+	return (nb * neg);
 }
 
 int		ft_strlen(char *str)
