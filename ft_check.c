@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:07:24 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/16 13:46:56 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/17 14:26:53 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int		ft_checkpoint(const char *str)
 
 int		ft_check_conv(char c)
 {
-	if (c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == 'p' || c == 'c')
+	if (c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X'
+	|| c == 'p' || c == 'c' || c == '%')
 		return (1);
 	return (0);
 }

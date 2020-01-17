@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 11:34:45 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:45 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/17 15:49:50 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,23 @@
 
 char		*ft_flags_together(t_struct *s_flags, char *arg)
 {
-	int i;
 	char *str;
 	char *str2;
 
-	i = 0;
+	str = NULL;
+	str2 = NULL;
 	if (s_flags->width > 0 && s_flags->point == 0)
-		str = ft_strwidth(arg, s_flags);
-	if (s_flags->point > s_flags->width && ft_atoi(arg) >= 0)
-		str = ft_strpoint(arg, s_flags);
-	if (s_flags->point > s_flags->width && ft_atoi(arg) < 0)
-		str = ft_strpoint_minus(arg, s_flags);
-	if (s_flags->point > 0 && s_flags->width > s_flags->point)
+		ft_width_only(s_flags, arg, str);
+	else if ((s_flags->point > 0 && s_flags->width == 0) || (s_flags->point > 0 && s_flags->width > 0 && s_flags->point >= s_flags->width))
+		ft_point_regular(s_flags, arg, str);
+	else if (s_flags->point > 0 && s_flags->width > 0 && s_flags->width > s_flags->point)
 	{
-		if (s_flags->point < 0)
-			str = ft_strpoint_minus(arg, s_flags);
-		if (s_flags->point >= 0)
-			str = ft_strpoint(arg, s_flags);
-		s_flags->width = s_flags->width - s_flags->point + 1;
-		str2 = ft_strwidth(arg, s_flags);
-		str = ft_strjoin(str, arg);
-		return (ft_strjoin(str, str2));
+		ft_more_width(s_flags, arg, str, str2);
+		if (s_flags->minus == '-')
+			return (ft_strjoin(str, str2));
+		return (ft_strjoin(str2, str));
 	}
-	if (s_flags->minus == 45)
+	if (s_flags->minus == '-')
 		return (ft_strjoin(arg, str));
 	return (ft_strjoin(str, arg));
 }
@@ -46,20 +40,22 @@ t_struct	*ft_get_flags(t_struct *s_flags, const char *str, va_list list)
 	int i;
 
 	i = 0;
-	s_flags->minus = ft_minus(str);
-	s_flags->zero = ft_zero(str);
 	s_flags->width = ft_width(str, list);
 	s_flags->point = ft_point(str, list);
+	s_flags->minus = ft_minus(str, s_flags);
+	s_flags->zero = ft_zero(str, s_flags);
 	s_flags->conversion = ft_conversion(str, list);
+	if (s_flags->conversion == NULL)
+		s_flags->conversion = ft_strdup("(null)");
 	return (s_flags);
 }
 
 int			ft_printf(const char *str, ...)
 {
+	t_struct	*s_flags;
 	va_list		list;
 	int			compt;
-	t_struct	*s_flags;
-	int			i = 0;
+	int			i;
 
 	compt = 0;
 	i = 0;
@@ -78,19 +74,18 @@ int			ft_printf(const char *str, ...)
 		{
 			i++;
 			s_flags = ft_get_flags(s_flags, str + i, list);
-			ft_print_str(ft_flags_together(s_flags, s_flags->conversion));
-			/*compt = compt + ft_strlen(ft_*/
+			compt = compt + ft_print_str(ft_flags_together(s_flags, s_flags->conversion));
 		}
-		while (str[i] && ft_check(str[i]) > 0)
+		while ((str[i] && ft_check(str[i]) > 0) || ft_check_conv(str[i]) == 1)
 		{
-			i++;
-				if (ft_check_conv(str[i]) == 1)
+			if (ft_check_conv(str[i]) == 1)
 			{
 				i++;
 				break ;
 			}
+			i++;
 		}
 	}
 	va_end(list);
-	return (compt + 1);
+	return (compt);
 }

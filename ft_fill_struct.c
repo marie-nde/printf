@@ -6,27 +6,27 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 11:59:02 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/16 14:08:43 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/17 14:47:22 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_minus(const char *str)
+int		ft_minus(const char *str, t_struct *s_flags)
 {
 	int i;
 
 	i = 0;
-	while (str && str[i] && ft_check(str[i]) == 1 && ft_checkpoint(str) == 0)
+	while (str && str[i] && ft_check(str[i]) == 1)
 	{
-		if (str[i] && str[i] == '-')
+		if (str[i] && str[i] == '-' && s_flags->width > s_flags->point)
 			return (45);
 		i++;
 	}
 	return (0);
 }
 
-int		ft_zero(const char *str)
+int		ft_zero(const char *str, t_struct *s_flags)
 {
 	int i;
 
@@ -34,7 +34,8 @@ int		ft_zero(const char *str)
 	while (str && str[i] && ft_check(str[i]) == 1)
 	{
 		if (str[i] && str[i] == '0' && (str[i - 1] < '0' ||
-		str[i - 1] > '9') && ft_minus(str) == 0 && ft_checkpoint(str) == 0)
+		str[i - 1] > '9') && ft_minus(str, s_flags) == 0 &&
+		ft_checkpoint(str) == 0)
 			return (48);
 		i++;
 	}
