@@ -22,9 +22,11 @@ typedef struct	s_flags
 {
 	char	zero;
 	char	minus;
-	char	point;
+	int		point;
 	int		width;
 	char	*conversion;
+	char	type;
+
 }				t_struct;
 
 int				ft_printf(const char *str, ...);
@@ -35,8 +37,6 @@ char			*ft_get_str(va_list list);
 int				ft_get_int(va_list list);
 unsigned int	ft_get_unsigned(va_list list);
 unsigned long	ft_get_pointer(va_list list);
-void			ft_print_unsigned(unsigned int nb);
-void			ft_print_address(unsigned long ad);
 int				ft_atoi(const char *str);
 char			*ft_strdup(char *str);
 char			*ft_itoa(int n);
@@ -59,8 +59,11 @@ char			*ft_strpoint_minus(char *arg, t_struct *s_flags);
 int				ft_checkpoint(const char *str);
 char			*ft_strboth(int len, char c);
 char			*ft_strwidth_minus(int len);
-void			ft_width_only(t_struct *s_flags, char *arg, char *str);
-void			ft_point_regular(t_struct *s_flags, char *arg, char *str);
-void			ft_more_width(t_struct *s_flags, char *arg, char *str, char *str2);
+char			*ft_width_only(t_struct *s_flags, char *arg, char *str);
+char			*ft_point_regular(t_struct *s_flags, char *arg, char *str);
+char			*ft_more_width(t_struct *s_flags, char *arg, char *str, char *str2);
+int				ft_type(const char *str);
+char			*ft_ptrcut(char *str);
+char			*ft_ptrpoint(char *arg, t_struct *s_flags);
 
 #endif

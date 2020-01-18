@@ -80,3 +80,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	new[j] = '\0';
 	return (new);
 }
+
+int		ft_type(const char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] && ft_check_conv(str[i]) == 0)
+		i++;
+	return (str[i]);
+}

@@ -20,12 +20,18 @@ char		*ft_flags_together(t_struct *s_flags, char *arg)
 	str = NULL;
 	str2 = NULL;
 	if (s_flags->width > 0 && s_flags->point == 0)
-		ft_width_only(s_flags, arg, str);
+		str = ft_width_only(s_flags, arg, str);
 	else if ((s_flags->point > 0 && s_flags->width == 0) || (s_flags->point > 0 && s_flags->width > 0 && s_flags->point >= s_flags->width))
-		ft_point_regular(s_flags, arg, str);
+	{
+		str = ft_point_regular(s_flags, arg, str);
+		if (s_flags->type == 'p')
+			arg = ft_ptrcut(arg);
+		else
+			arg = ft_strcut(arg);
+	}
 	else if (s_flags->point > 0 && s_flags->width > 0 && s_flags->width > s_flags->point)
 	{
-		ft_more_width(s_flags, arg, str, str2);
+		str = ft_more_width(s_flags, arg, str, str2);
 		if (s_flags->minus == '-')
 			return (ft_strjoin(str, str2));
 		return (ft_strjoin(str2, str));
@@ -45,6 +51,7 @@ t_struct	*ft_get_flags(t_struct *s_flags, const char *str, va_list list)
 	s_flags->minus = ft_minus(str, s_flags);
 	s_flags->zero = ft_zero(str, s_flags);
 	s_flags->conversion = ft_conversion(str, list);
+	s_flags->type = ft_type(str);
 	if (s_flags->conversion == NULL)
 		s_flags->conversion = ft_strdup("(null)");
 	return (s_flags);
@@ -66,8 +73,7 @@ int			ft_printf(const char *str, ...)
 	{
 		while (str[i] && str[i] != '%')
 		{
-			ft_print_char(str[i]);
-			i++;
+			ft_print_char(str[i++]);
 			compt++;
 		}
 		if (str[i] && str[i] == '%')
