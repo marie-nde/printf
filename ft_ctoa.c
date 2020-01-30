@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 11:23:30 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/10 11:24:31 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/30 15:32:45 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_ctoa(int c)
 {
 	char str[2];
 
-	str[0] = c;
+	str[0] = (unsigned char)c;
 	str[1] = '\0';
 	return (ft_strdup(str));
 }

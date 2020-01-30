@@ -6,43 +6,44 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 11:59:02 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/17 14:47:22 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/30 15:52:19 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_minus(const char *str, t_struct *s_flags)
+int		ft_minus(char *str, t_struct *s_flags)
 {
 	int i;
 
 	i = 0;
 	while (str && str[i] && ft_check(str[i]) == 1)
 	{
-		if (str[i] && str[i] == '-' && s_flags->width > s_flags->point)
+		if (str[i] && str[i] == '-' && (s_flags->type == 'c' ||
+		s_flags->width > s_flags->point))
 			return (45);
 		i++;
 	}
 	return (0);
 }
 
-int		ft_zero(const char *str, t_struct *s_flags)
+int		ft_zero(char *str, t_struct *s_flags)
 {
 	int i;
 
 	i = 0;
 	while (str && str[i] && ft_check(str[i]) == 1)
 	{
-		if (str[i] && str[i] == '0' && (str[i - 1] < '0' ||
+		if (str[i] && str[i] == '0' && ((str[i - 1] < '0' ||
 		str[i - 1] > '9') && ft_minus(str, s_flags) == 0 &&
-		ft_checkpoint(str) == 0)
+		ft_checkpoint(str) == 0))
 			return (48);
 		i++;
 	}
 	return (32);
 }
 
-int		ft_width(const char *str, va_list list)
+int		ft_width(char *str, va_list list)
 {
 	int i;
 
@@ -54,7 +55,7 @@ int		ft_width(const char *str, va_list list)
 	return (ft_atoi(str + i));
 }
 
-int		ft_point(const char *str, va_list list)
+int		ft_point(char *str, va_list list)
 {
 	int i;
 
@@ -73,7 +74,7 @@ int		ft_point(const char *str, va_list list)
 	return (0);
 }
 
-char	*ft_conversion(const char *str, va_list list)
+char	*ft_conversion(char *str, va_list list, t_struct *s_flags)
 {
 	int i;
 
@@ -89,7 +90,7 @@ char	*ft_conversion(const char *str, va_list list)
 	else if (str[i] == 'u')
 		return (ft_utoa(ft_get_unsigned(list)));
 	else if (str[i] == 'p')
-		return (ft_ptoa(ft_get_pointer(list)));
+		return (ft_ptoa(ft_get_pointer(list), s_flags));
 	else if (str[i] == 'x')
 		return (ft_xtoa(ft_get_unsigned(list), 'x'));
 	else if (str[i] == 'X')

@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:56:17 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/16 11:30:07 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/30 16:07:17 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ char	*ft_ultoa(unsigned long nb)
 	return (ft_strdup(new));
 }
 
-char	*ft_ptoa(unsigned long nb)
+char	*ft_ptoa(unsigned long nb, t_struct *s_flags)
 {
 	char	new[3];
 
 	new[2] = '\0';
 	new[0] = '0';
 	new[1] = 'x';
-	return (ft_strjoin(ft_strdup(new), ft_ultoa(nb)));
+	return (ft_strjoin(ft_strdup(new), ft_ultoa(nb), s_flags));
 }

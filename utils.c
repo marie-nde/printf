@@ -6,13 +6,13 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:29:32 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/17 14:28:13 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/30 16:10:39 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_atoi(const char *str)
+int		ft_atoi(char *str)
 {
 	int		i;
 	long	nb;
@@ -61,32 +61,30 @@ char	*ft_strdup(char *str)
 	return (new);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2, t_struct *s_flags)
 {
 	char	*new;
 	int		i;
 	int		j;
+	int		spe;
 
 	i = 0;
 	j = 0;
+	spe = 1;
+	if (s_flags->special_char == 1)
+		spe = 2;
 	if (!(new = (char*)malloc(sizeof(char) * (ft_strlen(s1) +
-	ft_strlen(s2) + 1))))
+	ft_strlen(s2) + spe))))
 		return (NULL);
 	while (s1 && s1[i])
 		new[j++] = s1[i++];
+	if (s_flags->special_char == 1)
+		new[j++] = '\0';
 	i = 0;
 	while (s2 && s2[i])
 		new[j++] = s2[i++];
 	new[j] = '\0';
+	free(s1);
+	free(s2);
 	return (new);
-}
-
-int		ft_type(const char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] && ft_check_conv(str[i]) == 0)
-		i++;
-	return (str[i]);
 }

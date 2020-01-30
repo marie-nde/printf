@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:07:24 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/17 14:26:53 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/30 14:42:55 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_check(char c)
 	return (0);
 }
 
-int		ft_checkpoint(const char *str)
+int		ft_checkpoint(char *str)
 {
 	int i;
 
