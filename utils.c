@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:29:32 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/30 16:10:39 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/02/01 10:19:35 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ int		ft_atoi(char *str)
 	i = 0;
 	nb = 0;
 	neg = 1;
-	if (str[i] == '-')
+	if (str && str[i] && str[i] == '-')
 	{
 		neg = -1;
 		i++;
 	}
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	while (str && str[i] && str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
 		i++;
@@ -50,6 +50,8 @@ char	*ft_strdup(char *str)
 	int		i;
 
 	i = 0;
+	if (str == NULL)
+		return (NULL);
 	if (!(new = (char*)malloc(sizeof(char) * ft_strlen(str) + 1)))
 		return (NULL);
 	while (str && str[i])

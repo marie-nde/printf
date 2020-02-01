@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 11:40:33 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/30 11:22:00 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/31 14:11:12 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char			ft_get_char(va_list list)
 
 char			*ft_get_str(va_list list)
 {
-	return (ft_strdup(va_arg(list, char*)));
+	return (va_arg(list, char*));
 }
 
 int				ft_get_int(va_list list)

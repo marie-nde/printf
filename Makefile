@@ -6,7 +6,7 @@
 #    By: mnaude <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/30 16:19:29 by mnaude            #+#    #+#              #
-#    Updated: 2020/01/30 16:36:52 by mnaude           ###   ########.fr        #
+#    Updated: 2020/02/01 13:15:02 by mnaude           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,6 @@ SRCS		= ft_check.c \
 				ft_xtoa.c \
 				utils.c
 
-GCC				= gcc
-
 AR				= ar rc
 
 CFLAGS			= -Wall -Wextra -Werror
@@ -43,7 +41,6 @@ all :
 				@make $(NAME)
 
 $(NAME)	:		$(OBJS)
-				$(GCC) -I ft_printf.h $(OBJS)
 				$(AR) $(NAME) $(OBJS)
 
 clean :

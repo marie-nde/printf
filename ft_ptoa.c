@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 10:56:17 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/30 16:07:17 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/01/31 13:20:52 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_counter(unsigned long nb)
 	int compt;
 
 	compt = 0;
-	if (nb > 0 && nb < 10)
+	if ((nb > 0 && nb < 10) || nb == 0)
 		return (1);
 	while (nb > 0)
 	{
@@ -37,6 +37,11 @@ char	*ft_ultoa(unsigned long nb)
 	base = "0123456789abcdef";
 	new[i] = '\0';
 	i--;
+	if (nb == 0)
+	{
+		new[i] = '0';
+		return (ft_strdup(new));
+	}
 	while (nb > 0)
 	{
 		new[i] = base[nb % 16];

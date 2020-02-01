@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 11:34:45 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/30 16:13:29 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/02/01 13:52:07 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,25 @@ char		*ft_flags_together(t_struct *s_flags, char *arg)
 
 	width = NULL;
 	precision = NULL;
-	if (s_flags->type == 's')
+	if (s_flags->type == 's' || s_flags->type == '%')
 		ft_is_str(&arg, &width, s_flags);
 	else if (s_flags->type == 'c')
 		ft_is_char(&arg, &width, s_flags);
 	else if (s_flags->type == 'u')
-		ft_is_un(&arg, &width, s_flags, &precision);
+		ft_is_int(&arg, &width, s_flags, &precision);
 	else if (s_flags->type == 'p')
 		ft_is_pt(&arg, &width, s_flags, &precision);
 	else if (s_flags->type == 'x' || s_flags->type == 'X')
 		ft_is_x(&arg, &width, s_flags, &precision);
 	else if (s_flags->type == 'd' || s_flags->type == 'i')
 		ft_is_int(&arg, &width, s_flags, &precision);
-	if (s_flags->minus == '-')
+	if (s_flags->minus == '-' || s_flags->moins == 1)
 		return (ft_strjoin(arg, width, s_flags));
 	return (ft_strjoin(width, arg, s_flags));
 }
 
 t_struct	*ft_get_flags(t_struct *s_flags, char *str, va_list list)
 {
-	int i;
-
-	i = 0;
-	s_flags->special_char = 0;
 	s_flags->type = ft_type(str);
 	s_flags->width = ft_width(str, list);
 	s_flags->point = ft_point(str, list);
@@ -49,8 +45,23 @@ t_struct	*ft_get_flags(t_struct *s_flags, char *str, va_list list)
 	s_flags->zero = ft_zero(str, s_flags);
 	s_flags->conversion = ft_conversion(str, list, s_flags);
 	s_flags->special_char = ft_special_char(s_flags);
-	if (s_flags->conversion == NULL)
+	s_flags->point_here = ft_point_here(str, s_flags->conversion,
+	s_flags->type);
+	s_flags->moins = ft_moins(s_flags->width);
+	if (s_flags->point_here == 1 && s_flags->point == 0)
+	{
+		free(s_flags->conversion);
+		s_flags->conversion = ft_strdup("\0");
+	}
+	else if (s_flags->conversion == NULL)
+	{
+		free(s_flags->conversion);
 		s_flags->conversion = ft_strdup("(null)");
+	}
+	if (s_flags->width < 0)
+		s_flags->width = s_flags->width * -1;
+	if (s_flags->point < 0)
+		s_flags->point = 0;
 	return (s_flags);
 }
 

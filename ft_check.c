@@ -6,7 +6,7 @@
 /*   By: mnaude <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 16:07:24 by mnaude            #+#    #+#             */
-/*   Updated: 2020/01/30 14:42:55 by mnaude           ###   ########.fr       */
+/*   Updated: 2020/02/01 13:49:35 by mnaude           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ int		ft_check_conv(char c)
 {
 	if (c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X'
 	|| c == 'p' || c == 'c' || c == '%')
+		return (1);
+	return (0);
+}
+
+int		ft_special_char(t_struct *s_flags)
+{
+	if (s_flags->type == 'c' && s_flags->conversion[0] == '\0')
+		return (1);
+	return (0);
+}
+
+int		ft_moins(int a)
+{
+	if (a < 0)
 		return (1);
 	return (0);
 }
